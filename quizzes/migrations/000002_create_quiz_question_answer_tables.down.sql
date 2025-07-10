@@ -1,10 +1,8 @@
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
-
 CREATE TABLE IF NOT EXISTS quiz (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title VARCHAR(64),
     description VARCHAR(512),
-    author_id UUID, -- Это вроде как FK, но юзеры могут уехать в другой инстанс постгри, так что пока так
+    author_id UUID REFERENCES users(id),
     created_at TIMESTAMP
 );
 
@@ -21,4 +19,3 @@ CREATE TABLE IF NOT EXISTS answer (
     question_id UUID REFERENCES question(id),
     is_correct bool
 );
-

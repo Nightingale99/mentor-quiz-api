@@ -19,19 +19,19 @@ services:
       retries: 3
     profiles: [ development ]
 
-    migrate:
-      image: migrate/migrate
-      command: [
-        "-database",
-        "postgres://${DB_USER}:${DB_PASSWORD}@db:5432/message_server_db?sslmode=disable",
-        "-path",
-        "/migrations",
-        "up" ]
-      depends_on:
-        db:
-          condition: service_healthy
-      volumes:
-        - ./server/migrations:/migrations
-      networks:
-        - default
-      profiles: [ development ]
+  migrate:
+    image: migrate/migrate
+    command: [
+      "-database",
+      "postgres://${DB_USER}:${DB_PASSWORD}@db:5432/message_server_db?sslmode=disable",
+      "-path",
+      "/migrations",
+      "up" ]
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./server/migrations:/migrations
+    networks:
+      - default
+    profiles: [ development ]
